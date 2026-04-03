@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SearchBar, Card, Navbar, SideBar } from "../components";
+import { SearchBar, Card, Navbar, SideBar, Button } from "../components";
 import { MOCK_PRODUCT } from "../data/mockProducts";
 
 export function Home() {
@@ -19,7 +19,6 @@ export function Home() {
       {/* Contenido principal */}
       <div className="flex-1 flex flex-col">
         <Navbar search={search} onSearchChange={setSearch} />
-
          <main className="flex-1 max-w-7xl mx-auto px-4 py-6 w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {filteredProducts.map((product) => (
