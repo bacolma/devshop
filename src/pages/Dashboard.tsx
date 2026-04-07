@@ -1,10 +1,18 @@
 // src/pages/Dashboard.tsx
+import UserList from "../components/User/UserList";
+import UserTable from "../components/User/UserTable";
+
 export default function Dashboard() {
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-semibold">Dashboard</h1>
         <p className="text-slate-400">Resumen general del sistema</p>
+      </div>
+
+      <div style={{ padding: "20px" }}>
+        <h2>Listado de Usuarios</h2>
+        <UserTable />
       </div>
 
       {/* KPI Cards */}
@@ -32,9 +40,24 @@ export default function Dashboard() {
               </thead>
               <tbody>
                 {[
-                  { id: "A-1021", name: "María", status: "Pagado", total: 120.5 },
-                  { id: "A-1022", name: "Juan", status: "Pendiente", total: 89.9 },
-                  { id: "A-1023", name: "Luisa", status: "Enviado", total: 210.0 },
+                  {
+                    id: "A-1021",
+                    name: "María",
+                    status: "Pagado",
+                    total: 120.5,
+                  },
+                  {
+                    id: "A-1022",
+                    name: "Juan",
+                    status: "Pendiente",
+                    total: 89.9,
+                  },
+                  {
+                    id: "A-1023",
+                    name: "Luisa",
+                    status: "Enviado",
+                    total: 210.0,
+                  },
                 ].map((row) => (
                   <tr key={row.id} className="border-b border-slate-800">
                     <td className="py-2">{row.id}</td>
@@ -43,9 +66,15 @@ export default function Dashboard() {
                       <span
                         className={[
                           "px-2 py-1 rounded-full text-xs",
-                          row.status === "Pagado" ? "bg-emerald-900 text-emerald-200" : "",
-                          row.status === "Pendiente" ? "bg-amber-900 text-amber-200" : "",
-                          row.status === "Enviado" ? "bg-sky-900 text-sky-200" : "",
+                          row.status === "Pagado"
+                            ? "bg-emerald-900 text-emerald-200"
+                            : "",
+                          row.status === "Pendiente"
+                            ? "bg-amber-900 text-amber-200"
+                            : "",
+                          row.status === "Enviado"
+                            ? "bg-sky-900 text-sky-200"
+                            : "",
                         ].join(" ")}
                       >
                         {row.status}
@@ -73,7 +102,15 @@ export default function Dashboard() {
   );
 }
 
-function Card({ title, value, hint }: { title: string; value: string; hint: string }) {
+function Card({
+  title,
+  value,
+  hint,
+}: {
+  title: string;
+  value: string;
+  hint: string;
+}) {
   return (
     <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4">
       <div className="text-slate-400 text-sm">{title}</div>
