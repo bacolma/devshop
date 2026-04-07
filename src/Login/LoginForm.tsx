@@ -1,22 +1,27 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {Input} from "./Input";
-import {Button} from "./Button";
+import { Input } from "./Input";
+import { Button } from "./Button";
 import { login } from "../services/authService";
 
 export const LoginForm = () => {
-  const [email, setEmail] = useState<string>("");
+  const [username, setUser] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
-      const response = await login({ email, password });
-      localStorage.setItem("token", response.token);
+      //const response = await login({ email, password });
+      const { token } = await login({
+        username,
+        password,
+      });
+
+      localStorage.setItem("token", token);
       ///alert("Login exitoso");
       navigate("/dashboard");
-    } catch (err) {
+    } catch (err: any) {
       if (err instanceof Error) {
         setError(err.message);
       }
@@ -28,10 +33,10 @@ export const LoginForm = () => {
       <h2 className="text-xl mb-4 text-center">Login</h2>
 
       <Input
-        type="email"
-        placeholder="Correo"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        type="text"
+        placeholder="Usuario"
+        value={username}
+        onChange={(e) => setUser(e.target.value)}
       />
 
       <Input

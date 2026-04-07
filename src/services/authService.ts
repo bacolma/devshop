@@ -1,15 +1,34 @@
-
-import { LoginCredentials, LoginResponse } from "../types/auth.types";
+import { API_BASE_URL, API_AUTH_LOGIN } from "../config/apiConfig";
+import type { LoginCredentials, LoginResponse } from "../types/auth.types";
 
 export const login = async (
-  credentials: LoginCredentials
+  credentials: LoginCredentials,
 ): Promise<LoginResponse> => {
-  const { email, password } = credentials;
+  const url = `${API_BASE_URL}${API_AUTH_LOGIN}`;
+  console.log("API URL:", url);
 
-  // Simulación (luego reemplazas por fetch/axios)
-  if (email === "admin@test.com" && password === "12345678") {
-    return Promise.resolve({ token: "fake-jwt-token" });
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Accept" : "application/json",
+    },
+    body: JSON.stringify(credentials),
+  });
+  console.log("response:", response);
+  
+  const contentType = response.headers.get("content-type");
+
+  if (!contentType || !contentType.includes("application/json")) {
+    const text = await response.text();
+    console.error("Respuesta no JSON:", text);
+    throw new Error("La API no devolvió JSON válido");
   }
 
-  throw new Error("Credenciales incorrectas");
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message ?? `Error HTTP: ${response.status}`);
+  }
+
+  return response.json();
 };
