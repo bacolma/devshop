@@ -1,6 +1,8 @@
 import { API_BASE_URL, API_AUTH_LOGIN } from "../config/apiConfig";
 import type { LoginCredentials, LoginResponse } from "../types/auth.types";
 
+const TOKEN_KEY = "auth_token";
+
 export const login = async (
   credentials: LoginCredentials,
 ): Promise<LoginResponse> => {
@@ -10,13 +12,14 @@ export const login = async (
   const response = await fetch(url, {
     method: "POST",
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "Accept" : "application/json",
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(credentials),
   });
   console.log("response:", response);
-  
+  console.log("response:", response.headers.get("content-type"));
+  console.log("JSON:", JSON.stringify(credentials));
+ 
   const contentType = response.headers.get("content-type");
 
   if (!contentType || !contentType.includes("application/json")) {
@@ -25,10 +28,19 @@ export const login = async (
     throw new Error("La API no devolvió JSON válido");
   }
 
-  if (!response.ok) {
+   const data: LoginResponse = await response.json();
+
+  if (!response.ok || !data.success) {
     const error = await response.json();
     throw new Error(error.message ?? `Error HTTP: ${response.status}`);
   }
+  
+  // ✅ GUARDAR TOKEN
+  if (data.token) {
+    sessionStorage.setItem(TOKEN_KEY, data.token);
+  } else {
+    console.warn("Login exitoso pero sin token");
+  }
 
-  return response.json();
+  return data;
 };
