@@ -37,7 +37,7 @@ export default function App() {
             : <Navigate to="/login" replace />
         }
       />
-
+ 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
