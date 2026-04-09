@@ -1,14 +1,11 @@
 import { API_BASE_URL, API_MENU } from "../config/apiConfig";
 import type { MenuItem } from "../types/menu.types";
 
-const rol_user = localStorage.getItem("rol_user");
-
 export const getMenu = async (): Promise<MenuItem[]> => {
+  const rol_user = localStorage.getItem("rol_user");
+  const token = sessionStorage.getItem("token");
+
   const url = `${API_BASE_URL}${API_MENU}/${rol_user}`;
-  console.log("API URL:", url);
-
-  const token = sessionStorage.getItem("auth_token");
-
   const response = await fetch(url, {
     headers: {
       Authorization: `Bearer ${token}`,

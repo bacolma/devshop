@@ -10,7 +10,7 @@ if (!rootElement) throw new Error("No se encontró el elemento #root en el DOM")
 
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter  basename="/devshop">
       <App />
     </BrowserRouter>
   </React.StrictMode>

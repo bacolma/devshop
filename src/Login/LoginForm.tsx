@@ -19,8 +19,10 @@ export const LoginForm = () => {
       });
 
       localStorage.setItem("token", token);
-      ///alert("Login exitoso");
-      navigate("/dashboard");
+      if (token) {
+        navigate("/contable");
+      }
+
     } catch (err: any) {
       if (err instanceof Error) {
         setError(err.message);

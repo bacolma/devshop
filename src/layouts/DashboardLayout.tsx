@@ -7,13 +7,10 @@ export default function DashboardLayout() {
   const data = localStorage.getItem("user");
   const usuario = data ? JSON.parse(data) : null;
 
-  console.log("data", data);
-
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("rol_user");
     localStorage.removeItem("user");
-    sessionStorage.removeItem("auth_token");
     navigate("/login", { replace: true });
   };
 

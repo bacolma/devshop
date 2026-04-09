@@ -1,15 +1,13 @@
 import { API_BASE_URL, API_AUTH_LOGIN } from "../config/apiConfig";
 import type { LoginCredentials, LoginResponse } from "../types/auth.types";
 
-const TOKEN_KEY = "auth_token";
+const TOKEN_KEY = "token";
 const ROL_USER = "rol_user";
 
 export const login = async (
   credentials: LoginCredentials,
 ): Promise<LoginResponse> => {
   const url = `${API_BASE_URL}${API_AUTH_LOGIN}`;
-  console.log("API URL:", url);
-
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -17,9 +15,6 @@ export const login = async (
     },
     body: JSON.stringify(credentials),
   });
-  console.log("response:", response);
-  console.log("response:", response.headers.get("content-type"));
-  console.log("JSON:", JSON.stringify(credentials));
  
   const contentType = response.headers.get("content-type");
 
@@ -38,7 +33,7 @@ export const login = async (
   
   // ✅ GUARDAR TOKEN
   if (data.token) {
-    sessionStorage.setItem(TOKEN_KEY, data.token);
+    localStorage.setItem(TOKEN_KEY, data.token);
     localStorage.setItem(ROL_USER, data.user.role);
     localStorage.setItem("user", JSON.stringify(data.user));
   } else {
