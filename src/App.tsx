@@ -4,7 +4,11 @@ import PrivateRoute from "./routes/PrivateRoute";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Dashboard from "./pages/Dashboard";
 import { LoginForm } from "./Login/LoginForm";
-import Users from "./pages/Users";
+import  UserList from "./pages/users/UserList";
+import  UserCreate from "./pages/users/UserCreate";
+import  UserEdit from "./pages/users/UserEdit";
+import  UserDelete from "./pages/users/UserDelete";
+
 
 function Placeholder({ title }: { title: string }) {
   return (
@@ -24,7 +28,10 @@ export default function App() {
       <Route element={<PrivateRoute />}>
         <Route path="/contable" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
-          <Route path="user" element={<Users />} />
+          <Route path="list" element={<UserList />} />
+          <Route path="incluir" element={<UserCreate />} />
+          <Route path="eliminar" element={<UserDelete />} />
+          <Route path="modifica" element={<UserEdit />} />
         </Route>
       </Route>
 

@@ -4,9 +4,16 @@ import { SideBar } from "../components/SideBar";
 
 export default function DashboardLayout() {
   const navigate = useNavigate();
+  const data = localStorage.getItem("user");
+  const usuario = data ? JSON.parse(data) : null;
+
+  console.log("data", data);
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("rol_user");
+    localStorage.removeItem("user");
+    sessionStorage.removeItem("auth_token");
     navigate("/login", { replace: true });
   };
 
@@ -19,7 +26,9 @@ export default function DashboardLayout() {
       <div className="flex-1 flex flex-col">
         {/* Topbar */}
         <header className="h-16 border-b border-slate-800 flex items-center justify-between px-4">
-          <div className="font-medium">Panel</div>
+          <div className="font-medium">
+            Panel –  User: {usuario?.username}  Rol: {usuario?.role}
+          </div>
 
           <div className="flex items-center gap-2">
             <button

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getUsers } from '../../services/userService'
-import type { User } from '../../types/User'
+import type { User } from '../../types/user.types'
 
 interface UserListProps {
   filter?: string

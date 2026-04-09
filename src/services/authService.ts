@@ -40,6 +40,7 @@ export const login = async (
   if (data.token) {
     sessionStorage.setItem(TOKEN_KEY, data.token);
     localStorage.setItem(ROL_USER, data.user.role);
+    localStorage.setItem("user", JSON.stringify(data.user));
   } else {
     console.warn("Login exitoso pero sin token");
   }
