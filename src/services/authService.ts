@@ -2,6 +2,7 @@ import { API_BASE_URL, API_AUTH_LOGIN } from "../config/apiConfig";
 import type { LoginCredentials, LoginResponse } from "../types/auth.types";
 
 const TOKEN_KEY = "auth_token";
+const ROL_USER = "rol_user";
 
 export const login = async (
   credentials: LoginCredentials,
@@ -38,6 +39,7 @@ export const login = async (
   // ✅ GUARDAR TOKEN
   if (data.token) {
     sessionStorage.setItem(TOKEN_KEY, data.token);
+    localStorage.setItem(ROL_USER, data.user.role);
   } else {
     console.warn("Login exitoso pero sin token");
   }

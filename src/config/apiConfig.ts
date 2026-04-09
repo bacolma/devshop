@@ -1,3 +1,4 @@
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 export const API_USERS = import.meta.env.VITE_API_USERS
 export const API_AUTH_LOGIN = import.meta.env.VITE_API_LOGIN
+export const API_MENU = import.meta.env.VITE_API_MENU

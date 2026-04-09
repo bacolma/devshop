@@ -1,18 +1,12 @@
 // src/pages/Dashboard.tsx
 import UserList from "../components/User/UserList";
-import UserTable from "../components/User/UserTable";
 
 export default function Dashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold">Dashboard</h1>
+        <h1 className="text-2xl font-semibold">Contable</h1>
         <p className="text-slate-400">Resumen general del sistema</p>
-      </div>
-
-      <div style={{ padding: "20px" }}>
-        <h2>Listado de Usuarios</h2>
-        <UserTable />
       </div>
 
       {/* KPI Cards */}

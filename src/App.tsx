@@ -4,6 +4,7 @@ import PrivateRoute from "./routes/PrivateRoute";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Dashboard from "./pages/Dashboard";
 import { LoginForm } from "./Login/LoginForm";
+import Users from "./pages/Users";
 
 function Placeholder({ title }: { title: string }) {
   return (
@@ -21,11 +22,9 @@ export default function App() {
 
       {/* ✅ Área protegida */}
       <Route element={<PrivateRoute />}>
-        <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route path="/contable" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
-          <Route path="orders" element={<Placeholder title="Orders" />} />
-          <Route path="products" element={<Placeholder title="Products" />} />
-          <Route path="settings" element={<Placeholder title="Settings" />} />
+          <Route path="user" element={<Users />} />
         </Route>
       </Route>
 
@@ -33,7 +32,7 @@ export default function App() {
         path="/"
         element={
           localStorage.getItem("token")
-            ? <Navigate to="/dashboard" replace />
+            ? <Navigate to="/contable" replace />
             : <Navigate to="/login" replace />
         }
       />

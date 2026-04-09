@@ -1,5 +1,6 @@
 // src/layouts/DashboardLayout.tsx
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { SideBar } from "../components/SideBar";
 
 export default function DashboardLayout() {
   const navigate = useNavigate();
@@ -9,35 +10,10 @@ export default function DashboardLayout() {
     navigate("/login", { replace: true });
   };
 
-  const linkClass = ({ isActive }: { isActive: boolean }) =>
-    `block px-3 py-2 rounded-lg transition ${
-      isActive ? "bg-slate-800 text-white" : "text-slate-300 hover:bg-slate-800 hover:text-white"
-    }`;
-
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex">
       {/* Sidebar */}
-      <aside className="w-64 border-r border-slate-800 p-4 hidden md:block">
-        <div className="text-xl font-semibold mb-6">DevShop</div>
-
-        <nav className="space-y-2">
-          <NavLink to="/dashboard" className={linkClass}>
-            📊 Dashboard
-          </NavLink>
-
-          <NavLink to="/dashboard/orders" className={linkClass}>
-            🧾 Orders
-          </NavLink>
-
-          <NavLink to="/dashboard/products" className={linkClass}>
-            📦 Products
-          </NavLink>
-
-          <NavLink to="/dashboard/settings" className={linkClass}>
-            ⚙️ Settings
-          </NavLink>
-        </nav>
-      </aside>
+      <SideBar />
 
       {/* Main */}
       <div className="flex-1 flex flex-col">
