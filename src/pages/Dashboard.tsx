@@ -1,5 +1,6 @@
 // src/pages/Dashboard.tsx
 import UserList from "../components/User/UserList";
+import MatchGoalsTemplate from "./Plantilla";
 
 export default function Dashboard() {
   return (
@@ -91,6 +92,12 @@ export default function Dashboard() {
             <li>⚠️ 2 tickets pendientes</li>
           </ul>
         </section>
+    
+      </div>
+
+       {/* MatchGoalsTemplate */}
+       <div>
+         <MatchGoalsTemplate/>
       </div>
     </div>
   );

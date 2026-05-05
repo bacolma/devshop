@@ -12,8 +12,6 @@ const UserCreate = lazy(() => import("./pages/users/UserCreate"));
 const UserEdit = lazy(() => import("./pages/users/UserEdit"));
 const UserDelete = lazy(() => import("./pages/users/UserDelete"));
 
-
-
 function Placeholder({ title }: { title: string }) {
   return (
     <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">

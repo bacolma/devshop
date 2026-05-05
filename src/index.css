@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-login {
+  background:
+    radial-gradient(900px 500px at 50% 0%, rgba(16, 185, 129, 0.28), transparent 55%),
+    linear-gradient(180deg, #0b6b44 0%, #063b29 55%, #03261d 100%);
+}
