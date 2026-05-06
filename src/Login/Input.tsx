@@ -5,6 +5,7 @@ interface InputProps {
   placeholder?: string;
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  className?: string; // ✅ agregado
 }
 
 export const Input = ({
@@ -12,6 +13,7 @@ export const Input = ({
   placeholder,
   value,
   onChange,
+  className,
 }: InputProps) => {
   return (
     <input
@@ -19,7 +21,7 @@ export const Input = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      className="border rounded p-2 w-full mb-3"
+      className={`border rounded p-2 w-full mb-3 ${className ?? ""}`} // ✅ concatena
     />
   );
 };

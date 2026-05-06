@@ -1,10 +1,34 @@
-
-import type { FormEvent } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Input } from "./Input";
+import { Button } from "./Button";
+import { login } from "../services/authService";
 
 export const LoginForm = () => {
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const [username, setUser] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: tu lógica de login aquí (API, navegación, etc.)
+     console.log("submit ejecutado");
+    try {
+      const response = await login({ username, password });
+      const { token } = await login({
+        username,
+        password,
+      });
+
+      localStorage.setItem("token", token);
+      if (token) {
+        navigate("/contable");
+      }
+    } catch (err: any) {
+      if (err instanceof Error) {
+        setError(err.message);
+      }
+    }
   };
 
   return (
@@ -31,17 +55,17 @@ export const LoginForm = () => {
             Iniciar Sesión
           </h2>
 
-          <form onSubmit={onSubmit} className="mt-8 space-y-6">
+          <form className="mt-8 space-y-6">
             {/* Email */}
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-2">
                 Email
               </label>
-              <input
-                type="email"
-                name="email"
-                placeholder="correo@ejemplo.com"
-                autoComplete="email"
+              <Input
+                type="text"
+                placeholder="Usuario"
+                value={username}
+                onChange={(e) => setUser(e.target.value)}
                 className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-700 placeholder-slate-400 shadow-sm outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-200"
               />
             </div>
@@ -51,22 +75,22 @@ export const LoginForm = () => {
               <label className="block text-sm font-semibold text-slate-700 mb-2">
                 Contraseña
               </label>
-              <input
+              <Input
                 type="password"
-                name="password"
-                placeholder="••••••••"
-                autoComplete="current-password"
+                placeholder="Contraseña"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-700 placeholder-slate-400 shadow-sm outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-200"
               />
             </div>
 
             {/* Botón */}
-            <button
-              type="submit"
+            <Button 
+              text="Ingresar" 
+              onClick={handleSubmit} 
               className="w-full rounded-lg bg-emerald-700 py-3.5 font-bold text-white shadow-md transition hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-300"
-            >
-              Ingresar
-            </button>
+             />
+           
 
             {/* Link registro */}
             <p className="text-center text-slate-600">
@@ -92,16 +116,14 @@ export const LoginForm = () => {
               <p className="text-emerald-200/90 text-sm font-semibold">
                 Usuario
               </p>
-              <p className="mt-1 text-white font-bold">
-                admin@mundial2026.com
-              </p>
+              <p className="mt-1 text-white font-bold">admin@test.com</p>
             </div>
 
             <div>
               <p className="text-emerald-200/90 text-sm font-semibold">
                 Contraseña
               </p>
-              <p className="mt-1 text-white font-bold">Admin123!</p>
+              <p className="mt-1 text-white font-bold">12345678</p>
             </div>
           </div>
         </div>
