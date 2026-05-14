@@ -1,16 +1,12 @@
 // src/App.tsx
 import { Routes, Route, Navigate } from "react-router-dom";
-import PrivateRoute from "./routes/PrivateRoute";
-
+import ProtectedRoute from "./routes/ProtectedRoute";
 import { lazy, Suspense } from "react";
 
 const DashboardLayout = lazy(() => import("./layouts/DashboardLayout"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const LoginForm = lazy(() => import("./pages/Login"));
-const UserList = lazy(() => import("./pages/users/UserList"));
-const UserCreate = lazy(() => import("./pages/users/UserCreate"));
-const UserEdit = lazy(() => import("./pages/users/UserEdit"));
-const UserDelete = lazy(() => import("./pages/users/UserDelete"));
+const PartidosPage = lazy(() => import("./pages/partidos/PartidosPage"));
 
 function Placeholder({ title }: { title: string }) {
   return (
@@ -21,10 +17,17 @@ function Placeholder({ title }: { title: string }) {
   );
 }
 
+function getLandingPath() {
+  const token = localStorage.getItem("token");
+  if (!token) return "/login";
+
+  const rol = localStorage.getItem("rol_user");
+  return rol === "ADMIN" ? "/home" : "/user";
+}
+
 export default function App() {
   return (
-
- <Suspense
+    <Suspense
       fallback={
         <div className="flex items-center justify-center h-screen text-slate-400">
           Cargando aplicación...
@@ -34,25 +37,27 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<LoginForm />} />
 
-        {/* ✅ Área protegida */}
-        <Route element={<PrivateRoute />}>
-          <Route path="/contable" element={<DashboardLayout />}>
+        {/* ✅ ZONA USER */}
+        <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
+          <Route path="/home" element={<DashboardLayout />}>
             <Route index element={<Dashboard />} />
-            <Route path="list" element={<UserList />} />
-            <Route path="incluir" element={<UserCreate />} />
-            <Route path="eliminar" element={<UserDelete />} />
-            <Route path="modifica" element={<UserEdit />} />
+            <Route path="partidos" element={<PartidosPage />} />
+            <Route path="resultados/:fase" element={<PartidosPage />} />
           </Route>
         </Route>
 
-        <Route
-          path="/"
-          element={
-            localStorage.getItem("token")
-              ? <Navigate to="/contable" replace />
-              : <Navigate to="/login" replace />
-          }
-        />
+        {/* ✅ ZONA ADMIN (usa mismo layout por ahora) */}
+        <Route element={<ProtectedRoute allowedRoles={["USER"]} />}>
+          <Route path="/home" element={<DashboardLayout />}>
+            <Route index element={<Placeholder title="Panel Usuario" />} />
+            {/* aquí luego pones tus páginas admin reales:
+                <Route path="usuarios" element={<AdminUsers />} />
+             */}
+          </Route>
+        </Route>
+
+        {/* ✅ Landing inteligente según token + rol */}
+        <Route path="/" element={<Navigate to={getLandingPath()} replace />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

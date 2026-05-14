@@ -1,122 +1,67 @@
-// src/pages/Dashboard.tsx
-import UserList from "../components/User/UserList";
-import MatchGoalsTemplate from "./Plantilla";
+import React from "react";
+import { Link, NavLink } from "react-router-dom";
 
-export default function Dashboard() {
+type Template = {
+  id: string;
+  nombre: string;
+  fechaCreacion: string; // ejemplo: "3/5/2026"
+};
+
+const templatesMock: Template[] = [
+  { id: "1", nombre: "Mundial Rimac 2026", fechaCreacion: "3/5/2026" },
+  { id: "2", nombre: "Juegos con gaudys", fechaCreacion: "3/5/2026" },
+];
+
+const TemplateCard = ({ template }: { template: Template }) => {
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-semibold">Contable</h1>
-        <p className="text-slate-400">Resumen general del sistema</p>
-      </div>
+    <div className="w-full max-w-xl rounded-xl border border-gray-300 bg-white shadow-sm">
+      {/* franja superior (verde + mostaza) */}
+      <div
+        className="h-3 rounded-t-xl"
+        style={{
+          background:
+            "linear-gradient(90deg, #16a34a 0%, #16a34a 55%, #d39b06 55%, #d39b06 100%)",
+        }}
+      />
+      <div className="p-6">
+        <h3 className="text-xl font700 font-bold text-gray-900">
+          {template.nombre}
+        </h3>
+        <p className="mt-2 text-sm text-gray-500">
+          Creada el {template.fechaCreacion}
+        </p>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card title="Ventas" value="$ 12,430" hint="+12% vs mes pasado" />
-        <Card title="Pedidos" value="328" hint="+8% vs semana pasada" />
-        <Card title="Usuarios" value="1,245" hint="+3% vs ayer" />
-        <Card title="Tickets" value="14" hint="2 urgentes" />
-      </div>
-
-      {/* Two columns */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <section className="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-4">
-          <h2 className="text-lg font-semibold mb-3">Últimos pedidos</h2>
-
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="text-slate-400">
-                <tr className="border-b border-slate-800">
-                  <th className="text-left py-2">#</th>
-                  <th className="text-left py-2">Cliente</th>
-                  <th className="text-left py-2">Estado</th>
-                  <th className="text-right py-2">Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  {
-                    id: "A-1021",
-                    name: "María",
-                    status: "Pagado",
-                    total: 120.5,
-                  },
-                  {
-                    id: "A-1022",
-                    name: "Juan",
-                    status: "Pendiente",
-                    total: 89.9,
-                  },
-                  {
-                    id: "A-1023",
-                    name: "Luisa",
-                    status: "Enviado",
-                    total: 210.0,
-                  },
-                ].map((row) => (
-                  <tr key={row.id} className="border-b border-slate-800">
-                    <td className="py-2">{row.id}</td>
-                    <td className="py-2">{row.name}</td>
-                    <td className="py-2">
-                      <span
-                        className={[
-                          "px-2 py-1 rounded-full text-xs",
-                          row.status === "Pagado"
-                            ? "bg-emerald-900 text-emerald-200"
-                            : "",
-                          row.status === "Pendiente"
-                            ? "bg-amber-900 text-amber-200"
-                            : "",
-                          row.status === "Enviado"
-                            ? "bg-sky-900 text-sky-200"
-                            : "",
-                        ].join(" ")}
-                      >
-                        {row.status}
-                      </span>
-                    </td>
-                    <td className="py-2 text-right">${row.total.toFixed(2)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <section className="bg-slate-900 border border-slate-800 rounded-2xl p-4">
-          <h2 className="text-lg font-semibold mb-3">Actividad</h2>
-          <ul className="space-y-3 text-sm text-slate-300">
-            <li>✅ Nuevo usuario registrado</li>
-            <li>📦 Producto actualizado</li>
-            <li>🧾 Pedido A-1023 enviado</li>
-            <li>⚠️ 2 tickets pendientes</li>
-          </ul>
-        </section>
-    
-      </div>
-
-       {/* MatchGoalsTemplate */}
-       <div>
-         <MatchGoalsTemplate/>
+        <Link
+          to={`/plantillas/${template.id}`}
+          className="mt-5 inline-flex items-center gap-2 font-semibold text-green-700 hover:text-green-800"
+        >
+          Ver predicciones y clasificación
+          <span aria-hidden="true" className="text-lg leading-none">
+            ›
+          </span>
+        </Link>
       </div>
     </div>
   );
-}
+};
 
-function Card({
-  title,
-  value,
-  hint,
-}: {
-  title: string;
-  value: string;
-  hint: string;
-}) {
+export default function Dashboard() {
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4">
-      <div className="text-slate-400 text-sm">{title}</div>
-      <div className="text-2xl font-semibold mt-1">{value}</div>
-      <div className="text-slate-500 text-xs mt-2">{hint}</div>
+    <div>
+      {/* Contenido */}
+      <main className="mx-auto w-full max-w-7xl flex-1 px-6 py-10">
+        <h1 className="text-3xl font-bold text-gray-900">Mis Plantillas</h1>
+        <p className="mt-2 text-gray-500">
+          Selecciona una plantilla para ingresar tus predicciones
+        </p>
+
+        {/* Cards */}
+        <section className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+          {templatesMock.map((t) => (
+            <TemplateCard key={t.id} template={t} />
+          ))}
+        </section>
+      </main>
     </div>
   );
 }
