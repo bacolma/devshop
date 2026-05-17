@@ -9,6 +9,7 @@ const UserDashboardLayout = lazy(() => import("./layouts/UserDashboardLayout"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const LoginForm = lazy(() => import("./pages/Login"));
 const PartidosPage = lazy(() => import("./pages/partidos/PartidosPage"));
+const TemplatePage = lazy(() => import("./pages/TemplatePage"));
 
 function Placeholder({ title }: { title: string }) {
   return (
@@ -46,6 +47,7 @@ export default function App() {
             <Route index element={<Dashboard />} />
             <Route path="partidos" element={<PartidosPage />} />
             <Route path="resultados/:fase" element={<PartidosPage />} />
+            <Route path="template" element={<TemplatePage />} />
           </Route>
         </Route>
 
