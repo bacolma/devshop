@@ -10,6 +10,7 @@ const Dashboard = lazy(() => import("./pages/Dashboard"));
 const LoginForm = lazy(() => import("./pages/Login"));
 const PartidosPage = lazy(() => import("./pages/partidos/PartidosPage"));
 const TemplatePage = lazy(() => import("./pages/TemplatePage"));
+const TorneoPage = lazy(() => import("./pages/TorneoPage"));
 
 function Placeholder({ title }: { title: string }) {
   return (
@@ -48,6 +49,7 @@ export default function App() {
             <Route path="partidos" element={<PartidosPage />} />
             <Route path="resultados/:fase" element={<PartidosPage />} />
             <Route path="template" element={<TemplatePage />} />
+            <Route path="torneo" element={<TorneoPage />} />
           </Route>
         </Route>
 

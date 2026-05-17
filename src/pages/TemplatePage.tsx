@@ -1,6 +1,6 @@
 import React from "react";
-import { TemplateList } from "../components/templates/templateList";
-import { TemplateButton } from "../components/templates/templateButton";
+import { TemplateList } from "../components/templates/TemplateList";
+import { TemplateButton } from "../components/templates/TemplateButton";
 
 export default function TemplatePage() {
   const template = [

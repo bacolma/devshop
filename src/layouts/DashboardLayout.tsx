@@ -63,7 +63,7 @@ const TopBar = () => {
           </NavLink>
           
           <NavLink
-            to="/template"
+            to="template"
             className={({ isActive }) =>
               `${navBase} ${isActive ? navActive : navInactive}`
             }
@@ -72,7 +72,7 @@ const TopBar = () => {
           </NavLink>
 
           <NavLink
-            to="/torneo"
+            to="torneo"
             className={({ isActive }) =>
               `${navBase} ${isActive ? navActive : navInactive}`
             }
