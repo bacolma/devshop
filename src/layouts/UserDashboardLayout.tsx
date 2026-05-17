@@ -46,21 +46,21 @@ const TopBarUser = () => {
         <nav className="flex items-center gap-3 text-sm">
 
           <NavLink
-            to="mis-quinelas"
+            to="plantillas"
             className={({ isActive }) =>
               `${navBase} ${isActive ? navActive : navInactive}`
             }
           >
-            Mis Quinelas
+            Mis plantillas
           </NavLink>
 
           <NavLink
-            to="tabla"
+            to="torneo"
             className={({ isActive }) =>
               `${navBase} ${isActive ? navActive : navInactive}`
             }
           >
-            Tabla
+            Torneo
           </NavLink>
 
           <NavLink
@@ -72,19 +72,11 @@ const TopBarUser = () => {
             Perfil
           </NavLink>
 
-          <a
-            href="/docs/documentacion.pdf"
-            download
-            className={`${navBase} ${navInactive}`}
-          >
-            Doc
-          </a>
-
           {/* Separador */}
           <div className="mx-1 h-6 w-px bg-white/25" />
 
           <span className="px-2 font-semibold text-white/90">
-            {user?.name || "Usuario"}
+            {user?.nombre || "Usuario"}
           </span>
 
           <button
@@ -111,11 +103,9 @@ export default function UserDashboardLayout() {
   return (
     <div className="min-h-screen flex flex-col">
       <TopBarUser />
-
-      <main className="flex-1">
-        <Outlet />
-      </main>
-
+        <main className="flex-1">
+          <Outlet />
+        </main>
       <Footer />
     </div>
   );

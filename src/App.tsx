@@ -4,9 +4,15 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import { lazy, Suspense } from "react";
 import { Register } from "./pages/registro/Register";
 
+// para Amdinistrador
 const DashboardLayout = lazy(() => import("./layouts/DashboardLayout"));
-const UserDashboardLayout = lazy(() => import("./layouts/UserDashboardLayout"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
+// para Usuarios
+const UserDashboardLayout = lazy(() => import("./layouts/UserDashboardLayout"));
+const UserDashboard = lazy(() => import("./pages/UserDashboard"));
+const UserTorneoPage = lazy(() => import("./pages/UserTorneoPage"));
+
+// para demas opciones
 const LoginForm = lazy(() => import("./pages/Login"));
 const PartidosPage = lazy(() => import("./pages/partidos/PartidosPage"));
 const TemplatePage = lazy(() => import("./pages/TemplatePage"));
@@ -54,9 +60,11 @@ export default function App() {
         </Route>
 
         {/* ✅ ZONA USER (usa mismo layout por ahora) */}
-
         <Route element={<ProtectedRoute allowedRoles={["USER"]} />}>
           <Route path="/user" element={<UserDashboardLayout />}>
+            <Route index element={<UserDashboard />} />
+            <Route path="plantillas" element={<UserDashboard />} />
+            <Route path="torneo" element={<UserTorneoPage />} />
           </Route>
         </Route>
 
