@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Input } from "./Input";
 import { Button } from "./Button";
 import { login } from "../services/authService";
+import { Link } from "react-router-dom";
 
 export const LoginForm = () => {
   const [username, setUser] = useState<string>("");
@@ -22,7 +23,7 @@ export const LoginForm = () => {
 
       localStorage.setItem("token", token);
       if (token) {
-        navigate("/contable");
+        navigate("/home");
       }
     } catch (err: any) {
       if (err instanceof Error) {
@@ -95,37 +96,13 @@ export const LoginForm = () => {
             {/* Link registro */}
             <p className="text-center text-slate-600">
               ¿No tienes cuenta?{" "}
-              <a
-                href="/register"
-                className="font-semibold text-emerald-700 hover:text-emerald-800 underline underline-offset-4"
+              <Link to="/register"
+              className="font-semibold text-emerald-700 hover:text-emerald-800 underline underline-offset-4"
               >
                 Regístrate aquí
-              </a>
+              </Link>
             </p>
           </form>
-        </div>
-
-        {/* Card Admin (glass) */}
-        <div className="mt-6 rounded-2xl border border-white/10 bg-emerald-950/25 backdrop-blur-md shadow-xl px-6 py-5">
-          <p className="text-center text-emerald-200 font-extrabold tracking-wider">
-            ACCESO ADMINISTRADOR
-          </p>
-
-          <div className="mt-4 grid grid-cols-2 gap-3 text-center">
-            <div>
-              <p className="text-emerald-200/90 text-sm font-semibold">
-                Usuario
-              </p>
-              <p className="mt-1 text-white font-bold">admin@test.com</p>
-            </div>
-
-            <div>
-              <p className="text-emerald-200/90 text-sm font-semibold">
-                Contraseña
-              </p>
-              <p className="mt-1 text-white font-bold">12345678</p>
-            </div>
-          </div>
         </div>
       </div>
     </div>

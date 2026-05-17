@@ -24,7 +24,7 @@ export default function ProtectedRoute({ allowedRoles }: Props) {
   // 3) Validar permisos por rol
   if (allowedRoles && !allowedRoles.includes(role)) {
     // si intentan entrar donde no corresponde → redirige según rol
-    return <Navigate to={role === "ADMIN" ? "/admin" : "/home"} replace />;
+    return <Navigate to={role === "ADMIN" ? "/home" : "/user"} replace />;
   }
 
   return <Outlet />;

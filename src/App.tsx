@@ -2,8 +2,10 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { lazy, Suspense } from "react";
+import { Register } from "./pages/registro/Register";
 
 const DashboardLayout = lazy(() => import("./layouts/DashboardLayout"));
+const UserDashboardLayout = lazy(() => import("./layouts/UserDashboardLayout"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const LoginForm = lazy(() => import("./pages/Login"));
 const PartidosPage = lazy(() => import("./pages/partidos/PartidosPage"));
@@ -36,8 +38,9 @@ export default function App() {
     >
       <Routes>
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/register" element={<Register />} />
 
-        {/* ✅ ZONA USER */}
+        {/* ✅ ZONA ADMIN */}
         <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
           <Route path="/home" element={<DashboardLayout />}>
             <Route index element={<Dashboard />} />
@@ -46,13 +49,10 @@ export default function App() {
           </Route>
         </Route>
 
-        {/* ✅ ZONA ADMIN (usa mismo layout por ahora) */}
+        {/* ✅ ZONA USER (usa mismo layout por ahora) */}
+
         <Route element={<ProtectedRoute allowedRoles={["USER"]} />}>
-          <Route path="/home" element={<DashboardLayout />}>
-            <Route index element={<Placeholder title="Panel Usuario" />} />
-            {/* aquí luego pones tus páginas admin reales:
-                <Route path="usuarios" element={<AdminUsers />} />
-             */}
+          <Route path="/user" element={<UserDashboardLayout />}>
           </Route>
         </Route>
 
