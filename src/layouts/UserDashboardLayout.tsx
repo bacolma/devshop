@@ -63,15 +63,6 @@ const TopBarUser = () => {
             Torneo
           </NavLink>
 
-          <NavLink
-            to="perfil"
-            className={({ isActive }) =>
-              `${navBase} ${isActive ? navActive : navInactive}`
-            }
-          >
-            Perfil
-          </NavLink>
-
           {/* Separador */}
           <div className="mx-1 h-6 w-px bg-white/25" />
 

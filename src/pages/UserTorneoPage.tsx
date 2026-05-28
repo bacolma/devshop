@@ -14,6 +14,8 @@ export default function UserTorneoPage() {
   useEffect(() => {
     const data = [
       { id: 1, nombre: "Mundial Rimac 2026" },
+      { id: 2, nombre: "Plantilla 2" },
+      { id: 3, nombre: "Plantilla 3" },
     ];
 
     setPlantillas(data);
@@ -37,6 +39,27 @@ export default function UserTorneoPage() {
         partidos: [
           "Estados Unidos vs Países Bajos",
           "Senegal vs Costa Rica",
+          "Estados Unidos vs Senegal",
+          "Países Bajos vs Costa Rica",
+          "Costa Rica vs Estados Unidos",
+          "Países Bajos vs Senegal",  
+        ],
+      },
+            {
+        nombre: "Grupo B",
+        equipos: [
+          { nombre: "Estados Unidos", pj: 0, g: 0, e: 0, p: 0, dif: 0, pts: 0 },
+          { nombre: "Países Bajos", pj: 0, g: 0, e: 0, p: 0, dif: 0, pts: 0 },
+          { nombre: "Senegal", pj: 0, g: 0, e: 0, p: 0, dif: 0, pts: 0 },
+          { nombre: "Costa Rica", pj: 0, g: 0, e: 0, p: 0, dif: 0, pts: 0 },
+        ],
+        partidos: [
+          "Estados Unidos vs Países Bajos",
+          "Senegal vs Costa Rica",
+          "Estados Unidos vs Senegal",
+          "Países Bajos vs Costa Rica",
+          "Costa Rica vs Estados Unidos",
+          "Países Bajos vs Senegal",  
         ],
       },
     ]);
